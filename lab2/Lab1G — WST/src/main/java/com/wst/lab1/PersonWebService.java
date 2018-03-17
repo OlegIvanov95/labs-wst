@@ -1,6 +1,5 @@
 package com.wst.lab1;
 
-import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 
 import javax.jws.WebMethod;
@@ -39,8 +38,8 @@ public class PersonWebService
     /** Добавляет запись в базу данных, берёт на вход значения всех полей записи
       * @return возвращает id новой записи */
     @WebMethod(operationName = "addHuman")
-    public int addHuman(int id, @NotNull String name, @NotNull String surname, int age, @NotNull String sex)
-    { return new MySQLDAO().addHuman(id, name, surname, age, sex); }
+    public int addHuman(Human human)
+    { return new MySQLDAO().addHuman(human); }
 
     /** Удаляет запись по её id
       * @return возвращает статус операции */
@@ -51,6 +50,6 @@ public class PersonWebService
     /** Изменяет запись в базе, берёт на вход id изменяемой записи и новые поля
       * @return возвращает статус операции */
     @WebMethod(operationName = "changeHuman")
-    public MySQLDAO.Status changeHuman(int changeId, @NotNull String name, @NotNull String surname, int age, @NotNull String sex)
-    { return new MySQLDAO().changeHuman(changeId, name, surname, age, sex); }
+    public MySQLDAO.Status changeHuman(Human human)
+    { return new MySQLDAO().changeHuman(human); }
 }

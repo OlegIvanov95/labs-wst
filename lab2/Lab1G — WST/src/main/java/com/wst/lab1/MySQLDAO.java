@@ -43,11 +43,11 @@ public class MySQLDAO
 
     /** Добавляет запись в базу данных, берёт на вход значения всех полей записи
       * @return возвращает id новой записи */
-    public int addHuman(int id, @NotNull String name, @NotNull String surname, int age, @NotNull String sex)
+    public int addHuman(Human human)
     {
         try
         {
-            final String query = String.format("INSERT INTO humans VALUES('%d', '%s', '%s', '%d', '%s');", id, name, surname, age, sex);
+            final String query = String.format("INSERT INTO humans VALUES('%d', '%s', '%s', '%d', '%s');", human.id, human.name, human.surname, human.age, human.sex);
             System.out.print("Execute: " + query);
 
             Connection conn = ConnectionUtil.getConnection();
@@ -56,7 +56,7 @@ public class MySQLDAO
             st.executeUpdate(query);
             System.out.println(" - good");
 
-            return id;
+            return human.id;
         }
         catch (Exception e)
         {
@@ -93,7 +93,7 @@ public class MySQLDAO
 
     /** Изменяет запись в базе, берёт на вход id изменяемой записи и новые поля
       * @return возвращает статус операции */
-    public Status changeHuman(int changeId, @NotNull String name, @NotNull String surname, int age, @NotNull String sex)
+    public Status changeHuman(Human human)
     {
         try
         {
@@ -104,7 +104,7 @@ public class MySQLDAO
                             " age = '%d'," +
                             " sex = '%s'" +
                     " WHERE id = '%d';",
-                                        name, surname, age, sex, changeId);
+                                        human.name, human.surname, human.age, human.sex, human.id);
 
             System.out.print("Execute: " + query);
 

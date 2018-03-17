@@ -8,6 +8,10 @@ public class Human
     public int age;
     public String sex;
 
+    /** JAX-WS работает только с дефолтным конструктором */
+    public Human()
+    { }
+
     public Human(int id, String name, String surname, int age, String sex)
     {
         this.id = id;
@@ -17,7 +21,7 @@ public class Human
         this.sex = sex;
     }
 
-    /** Выводит описание человека */
+    /** Выводит описание человека (не виден на клиенте :( ) */
     public String getHumanDescribe()
     { return (id + "\t" + name + "\t" + surname + "\t" + age + "\t" + sex); }
 }
