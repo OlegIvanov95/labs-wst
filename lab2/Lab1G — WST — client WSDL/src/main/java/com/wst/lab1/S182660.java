@@ -14,27 +14,55 @@ public class S182660
     /** Точка входа в программу */
     public static void main(String[] args)
     {
-        try
-        {
-            PersonService personService = new PersonService(new URL(url));
 
-            //testConnection();
+            new Thread(new Runnable()
+            {
+                @Override public void run()
+                {
+                    try
+                    {
+                        System.out.println("*threadRun");
+                        PersonService personService = new PersonService(new URL(url));
 
-            System.out.print("Выполним запрос на добавление");
-            final int ret = personService.getPersonWebServicePort().addHuman(15, "Ekaterina", "Morozova", 25, "woman");
-            System.out.print(" - успех, ret: " + ret);
+                        //testConnection();
 
-            System.out.print("Выполним запрос на изменение");
-            final Status status2 = personService.getPersonWebServicePort().changeHuman(ret, "Katya", "Moroz", 21, "woman");
-            System.out.print(" - успех, ret: " + getStatus(status2));
+                        System.out.println("Выполним запрос на добавление");
 
-           /* System.out.print("Выполним запрос на удаление");
-            final Status status = personService.getPersonWebServicePort().removeHuman(ret);
+                        Human human = new Human();
+                        human.setId(15);
+                        human.setName("Ekaterina");
+                        human.setSurname("Morozova");
+                        human.setId(25);
+                        human.setSex("woman");
 
-            System.out.print(" - успех, ret: " + getStatus(status));*/
-        }
-        catch (MalformedURLException e)
-        { e.printStackTrace(); }
+                        final int ret;
+                        ret = personService.getPersonWebServicePort().addHuman(human);
+                        System.out.print(" - успех, ret: " + ret);
+
+                        System.out.println("Выполним запрос на изменение");
+
+                        Human human2 = new Human();
+                        human2.setId(ret);
+                        human2.setName("Katya");
+                        human2.setSurname("Moroz");
+                        human2.setId(21);
+                        human2.setSex("woman");
+
+                        final Status status2 = personService.getPersonWebServicePort().changeHuman(human2);
+                        System.out.print(" - успех, ret: " + getStatus(status2));
+
+                        System.out.println("Выполним запрос на удаление");
+                        final Status status = personService.getPersonWebServicePort().removeHuman(ret);
+
+                        System.out.print(" - успех, ret: " + getStatus(status));
+                        System.out.println("*threadStop");
+                    }
+                    catch (MalformedURLException e)
+                    { e.printStackTrace(); }
+                }
+            }).start();
+
+        System.out.println("*other methods");
     }
 
     private static String getStatus(Status status)

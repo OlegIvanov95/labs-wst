@@ -27,10 +27,6 @@ public interface PersonWebService {
 
     /**
      * 
-     * @param arg3
-     * @param arg2
-     * @param arg4
-     * @param arg1
      * @param arg0
      * @return
      *     returns mypackage.Status
@@ -42,15 +38,37 @@ public interface PersonWebService {
     @Action(input = "http://lab1.wst.com/PersonWebService/changeHumanRequest", output = "http://lab1.wst.com/PersonWebService/changeHumanResponse")
     public Status changeHuman(
         @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        int arg3,
-        @WebParam(name = "arg4", targetNamespace = "")
-        String arg4);
+        Human arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "addHuman", targetNamespace = "http://lab1.wst.com/", className = "mypackage.AddHuman")
+    @ResponseWrapper(localName = "addHumanResponse", targetNamespace = "http://lab1.wst.com/", className = "mypackage.AddHumanResponse")
+    @Action(input = "http://lab1.wst.com/PersonWebService/addHumanRequest", output = "http://lab1.wst.com/PersonWebService/addHumanResponse")
+    public int addHuman(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Human arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns mypackage.Status
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeHuman", targetNamespace = "http://lab1.wst.com/", className = "mypackage.RemoveHuman")
+    @ResponseWrapper(localName = "removeHumanResponse", targetNamespace = "http://lab1.wst.com/", className = "mypackage.RemoveHumanResponse")
+    @Action(input = "http://lab1.wst.com/PersonWebService/removeHumanRequest", output = "http://lab1.wst.com/PersonWebService/removeHumanResponse")
+    public Status removeHuman(
+        @WebParam(name = "arg0", targetNamespace = "")
+        int arg0);
 
     /**
      * 
@@ -115,48 +133,6 @@ public interface PersonWebService {
         String arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         Integer arg3,
-        @WebParam(name = "arg4", targetNamespace = "")
-        String arg4);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns mypackage.Status
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removeHuman", targetNamespace = "http://lab1.wst.com/", className = "mypackage.RemoveHuman")
-    @ResponseWrapper(localName = "removeHumanResponse", targetNamespace = "http://lab1.wst.com/", className = "mypackage.RemoveHumanResponse")
-    @Action(input = "http://lab1.wst.com/PersonWebService/removeHumanRequest", output = "http://lab1.wst.com/PersonWebService/removeHumanResponse")
-    public Status removeHuman(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg4
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addHuman", targetNamespace = "http://lab1.wst.com/", className = "mypackage.AddHuman")
-    @ResponseWrapper(localName = "addHumanResponse", targetNamespace = "http://lab1.wst.com/", className = "mypackage.AddHumanResponse")
-    @Action(input = "http://lab1.wst.com/PersonWebService/addHumanRequest", output = "http://lab1.wst.com/PersonWebService/addHumanResponse")
-    public int addHuman(
-        @WebParam(name = "arg0", targetNamespace = "")
-        int arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        int arg3,
         @WebParam(name = "arg4", targetNamespace = "")
         String arg4);
 
