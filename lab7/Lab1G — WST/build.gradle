@@ -1,0 +1,38 @@
+group 'gr'
+version '9'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+//sourceSets.main.java.srcDirs = ['src']
+
+mainClassName = 'com.wst.lab1.S182660'
+
+compileJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = 1.8
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                   'Implementation-Version': version,
+                   'Main-Class': 'com.wst.lab1.S182660'
+    }
+    baseName = 'gr'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
+repositories
+{
+    mavenCentral()
+}
+
+dependencies
+{
+    compile group: 'org.apache.juddi', name: 'juddi-client', version: '3.3.3'
+}
