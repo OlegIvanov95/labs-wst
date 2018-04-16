@@ -41,8 +41,20 @@ public class S182660
 
         int ret;
 
+        for (int i = 0; i < 20; i ++)
+        {
+            int finalI = i;
+            new Thread(new Runnable()
+            {
+                @Override  public void run()
+                {
+                    addHuman(client, 100 + finalI, "Bill", "Klinton", 70, "man");
+                }
+            }).start();
+        }
+
         System.out.println("Выполним запрос на добавление");
-        ret = addHuman(client, -1, "Bill", "Klinton", 70, "man");
+        ret = addHuman(client, 31, "Bill", "Klinton", 70, "man");
         System.out.print(" - успех, add id: " + ret);
 
         System.out.println("\n\nВыполним запрос на изменение");
@@ -95,6 +107,8 @@ public class S182660
 
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
+        System.out.println("status: " + response.getStatus());
+
         if (response.getStatus() != ClientResponse.Status.OK.getStatusCode())
             throw new IllegalStateException("Request failed");
 
@@ -109,6 +123,8 @@ public class S182660
         webResource = webResource.queryParam("id", String.valueOf(id));
 
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+        System.out.println("status: " + response.getStatus());
 
         if (response.getStatus() != ClientResponse.Status.OK.getStatusCode())
             throw new IllegalStateException("Request failed");
@@ -128,6 +144,8 @@ public class S182660
         webResource = webResource.queryParam("sex", sex);
 
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+
+        System.out.println("status: " + response.getStatus());
 
         if (response.getStatus() != ClientResponse.Status.OK.getStatusCode())
             throw new IllegalStateException("Request failed");
